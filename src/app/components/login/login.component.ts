@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  activeBtn : string = "loginBtn";
+  activeBtn : string = "signupBtn";
   showPassword : boolean = true;
   onSignUpClick(event:any){ 
     this.activeBtn = "signupBtn";
