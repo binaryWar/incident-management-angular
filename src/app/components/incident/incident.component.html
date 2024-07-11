@@ -10,6 +10,7 @@
       <thead>
         <tr>
           <th>Identity Number</th>
+          <th>Incident Identity</th>
           <th>Reporter Name</th>
           <th>Priority</th>
           <th>Status</th>
@@ -20,8 +21,9 @@
       <tbody>
         <!-- Example of incident rows, replace with actual data binding -->
         <tr *ngFor="let incident of incidents">
-          <td>{{ incident.identityNumber }}</td>
-          <td>{{ incident.reporterName }}</td>
+          <td>{{ incident.incidentNumber }}</td>
+          <td>{{ incident.incidentIdentity }}</td>
+          <td>{{ incident.reportedId }}</td>
           <td>{{ incident.priority }}</td>
           <td>{{ incident.status }}</td>
           <td>{{ incident.createdAt | date: 'dd/MM/yyyy HH:mm:ss' }}</td>

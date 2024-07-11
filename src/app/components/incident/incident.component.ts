@@ -46,10 +46,10 @@ export class IncidentComponent implements OnInit{
   }
 
   fetchIncidents() {
-    
+
     this.commonService.fetchUserIncidents().subscribe({
       next : (response:any)=>{
-        console.log(JSON.stringify(response));
+        this.incidents = response;
       },error : (err:any)=>{
 
       }
