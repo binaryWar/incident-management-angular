@@ -7,14 +7,14 @@
 </div>
 <div class="login-container" *ngIf="activeBtn == 'loginBtn'">
     <div class="blank-div"></div>
-    <div class="login-form">
+    <div class="login-form" [formGroup]="userLoginFormGroup" (ngSubmit)="onLogin()">
       <h2 style="float: left;">User Login</h2>
       <form>
         <div class="form-group">
-          <input type="email" placeholder="Email" required>
+          <input type="email" placeholder="Email" formControlName="emailAddress">
         </div>
         <div class="form-group">
-          <input [type]="showPassword ? 'password' : 'text'" placeholder="Password">
+          <input [type]="showPassword ? 'password' : 'text'" placeholder="Password" formControlName="password">
           <i class="fa fa-eye-slash password-eye-icon" aria-hidden="true" (click)="showPassword=!showPassword" *ngIf="!showPassword"></i>
           <i class="fa fa-eye password-eye-icon" aria-hidden="true" (click)="showPassword=!showPassword" *ngIf="showPassword"></i>
         </div>

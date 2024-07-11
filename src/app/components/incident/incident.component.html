@@ -1,1 +1,115 @@
-<p>incident works!</p>
+<!-- incident.component.html -->
+
+<div class="incident-container">
+
+    <!-- Create/Edit Button -->
+    <button class="create-edit-btn" (click)="openModal()">Create Incident</button>
+  
+    <!-- Table Structure View -->
+    <table class="incident-table">
+      <thead>
+        <tr>
+          <th>Identity Number</th>
+          <th>Reporter Name</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example of incident rows, replace with actual data binding -->
+        <tr *ngFor="let incident of incidents">
+          <td>{{ incident.identityNumber }}</td>
+          <td>{{ incident.reporterName }}</td>
+          <td>{{ incident.priority }}</td>
+          <td>{{ incident.status }}</td>
+          <td>{{ incident.createdAt | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>{{ incident.description }}</td>
+          <td>
+            <!-- Example edit button, replace with actual edit functionality -->
+            <button (click)="editIncident(incident)">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Modal/Form for Creating/Editing Incidents -->
+    <div class="modal" [class.open]="modalOpen">
+        <form (ngSubmit)="saveIncident()" [formGroup]="incidentFormGroup">
+            <label for="incidentIdentity">Incident Identity:</label>
+            <select id="incidentIdentity" formControlName="incidentIdentity">
+                <option value="" selected disabled>Select</option>
+              <option value="Government">Government</option>
+              <option value="Enterprise">Enterprise</option>
+            </select>
+            <div *ngIf="shouldDisplayError('incidentIdentity')" class="error">
+                <div *ngIf="f['priority'].errors?.['required']">Incident Identity is required</div>
+            </div>
+
+            <!-- <label for="reporterName">Reporter Name:</label>
+            <input type="text" id="reporterName" formControlName="reporterId">
+            <div *ngIf="shouldDisplayError('reporterName')" class="error">
+              <div *ngIf="f['reporterName'].errors?.['required']">Reporter Name is required</div>
+              <div *ngIf="f['reporterName'].errors?.['maxlength']">Reporter Name must be less than 25 characters</div>
+            </div> -->
+            <label for="reporterId">Reporter:</label>
+            <div>
+              <!-- Dropdown for selecting existing reporter ID -->
+              <select id="reporterId" formControlName="reporterId" *ngIf="reporters.length">
+                <option value="">Select Reporter ID</option>
+                <option *ngFor="let reporter of reporters" [value]="reporter.id">{{ reporter.name }}</option>
+              </select>
+              
+              <!-- Input for typing reporter's name -->
+              <input type="text" id="newReporterName" formControlName="reporterName" placeholder="Type reporter's name">
+              
+              <label>
+                <input type="checkbox" formControlName="createNewReporter"> Create New Reporter
+              </label>
+              
+            </div>
+            <div *ngIf="shouldDisplayError('reporterId') || shouldDisplayError('reporterName')" class="error">
+              <div *ngIf="f['reporterId'].errors?.['required']">Reporter ID is required</div>
+              <div *ngIf="f['reporterName'].errors?.['required']">Reporter name is required</div>
+            </div>
+
+            <label for="priority">Priority:</label>
+            <select id="priority" formControlName="priority">
+                <option value="" selected disabled>Select</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+            <div *ngIf="shouldDisplayError('priority')" class="error">
+              <div *ngIf="f['priority'].errors?.['required']">Priority is required</div>
+              <div *ngIf="f['priority'].errors?.['maxlength']">Priority must be less than 15 characters</div>
+            </div>
+          
+            <label for="status">Status:</label>
+            <select id="status" formControlName="status">
+                <option value="" selected disabled>Select</option>
+              <option value="Open">Open</option>
+              <option value="In_Progress">In Progress</option>
+              <option value="Closed">Closed</option>
+            </select>
+            <div *ngIf="shouldDisplayError('status')" class="error">
+              <div *ngIf="f['status'].errors?.['required']">Status is required</div>
+              <div *ngIf="f['status'].errors?.['maxlength']">Status must be less than 15 characters</div>
+            </div>
+          
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description"></textarea>
+            <div *ngIf="shouldDisplayError('description')" class="error">
+              <div *ngIf="f['description'].errors?.['required']">Description is required</div>
+              <div *ngIf="f['description'].errors?.['maxlength']">Description must be less than 50 characters</div>
+            </div>
+          
+            <button type="submit">Save</button>
+            <button type="button" (click)="closeModal()">Cancel</button>
+          </form>
+          
+    </div>
+  
+  </div>
+  

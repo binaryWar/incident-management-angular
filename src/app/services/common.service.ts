@@ -31,4 +31,12 @@ export class CommonService {
     return this.httpClient.post(`${host}/user/register`,payload);
   }
 
+  login(payload : any){
+    return this.httpClient.post(`${host}/user/login`,payload);
+  } 
+  
+  createIncident(payload : any){
+    return this.httpClient.post(`${host}/incident/create`,payload);
+  }
+
 }
