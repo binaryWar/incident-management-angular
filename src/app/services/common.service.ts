@@ -7,8 +7,23 @@ const host = "http://localhost:3000/api/v1"
   providedIn: 'root'
 })
 export class CommonService {
-
+  private loggedInUserId: string | undefined;
+  private emailAddress : string | undefined;
   constructor(private httpClient : HttpClient) { }
+  
+  setLoggedInUserId(userId: string) {
+    this.loggedInUserId = userId;
+  }
+
+  getLoggedInUserId(): string | undefined {
+    return this.loggedInUserId;
+  }
+  setLoggedInUserEmailAddress(email : string){
+    this.emailAddress = email;
+  }
+  getLoggedInUserEmailAddress(){
+    return this.emailAddress;
+  }
 
   getCityAndState(pincode: string): Observable<{ city: string, state: string }> {
     return this.httpClient.get<any>(`${host}/pincode/${pincode}`)
@@ -38,5 +53,7 @@ export class CommonService {
   createIncident(payload : any){
     return this.httpClient.post(`${host}/incident/create`,payload);
   }
-
-}
+  fetchUserIncidents(){
+    return this.httpClient.get(`${host}/incident/fetch`);
+  }
+} 

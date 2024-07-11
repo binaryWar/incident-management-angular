@@ -36,10 +36,20 @@ export class LoginComponent implements OnInit{
     this.commonService.login(this.userLoginFormGroup.value).subscribe({
       next : (data:any)=>{
         const {httpStatusCode,id,emailAddress} = data;
+        this.handleSessionStorage(id,emailAddress);
         this.router.navigate(['/incident'])
       },error : (err:any)=>{
 
       }
     })
+  }
+  private handleSessionStorage(id:string , emailAddress : string){
+    this.commonService.setLoggedInUserId(id);
+    this.commonService.setLoggedInUserEmailAddress(emailAddress);
+    const crednetials = {
+      id,
+      emailAddress
+    }
+    sessionStorage.setItem("credentials",JSON.stringify(crednetials));
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -7,7 +7,7 @@ import { CommonService } from 'src/app/services/common.service';
   templateUrl: './incident.component.html',
   styleUrls: ['./incident.component.css']
 })
-export class IncidentComponent {
+export class IncidentComponent implements OnInit{
   incidents: any[] = [];
   modalOpen: boolean = false;
   incidentFormGroup!:FormGroup;
@@ -23,8 +23,8 @@ export class IncidentComponent {
   ngOnInit(): void {
     this.incidentFormGroup = this.fb.group({
       incidentIdentity : [,[Validators.required]],
-      reporterId : [,[Validators.required,Validators.maxLength(25)]],
-      reporterName: ['',Validators.required],
+      reporterId : [,],
+      reporterName: ['',[Validators.required,Validators.maxLength(25)]],
       priority : [,[Validators.required,Validators.maxLength(15)]],
       status : [,[Validators.required,Validators.maxLength(15)]],
       description : [,[Validators.required,Validators.maxLength(50)]],
@@ -47,6 +47,13 @@ export class IncidentComponent {
 
   fetchIncidents() {
     
+    this.commonService.fetchUserIncidents().subscribe({
+      next : (response:any)=>{
+        console.log(JSON.stringify(response));
+      },error : (err:any)=>{
+
+      }
+    })
   }
 
   openModal() {
@@ -76,5 +83,17 @@ export class IncidentComponent {
   editIncident(incident: any) {
     this.openModal();
   }
+  onReporterOptionClick(name:string){
+    this.incidentFormGroup.controls['reporterName'].setValue(name);
+    this.incidentFormGroup.controls['createNewReporter'].setValue(false);
+  }
+  onCreateReporterChange(event:any){
+    const ele = event.target;
 
+    if(ele && ele.checked){
+      this.incidentFormGroup.controls['reporterId'].setValue(null);
+    }else{
+
+    }
+  }
 }

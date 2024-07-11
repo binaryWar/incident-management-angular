@@ -58,14 +58,14 @@
               <!-- Dropdown for selecting existing reporter ID -->
               <select id="reporterId" formControlName="reporterId" *ngIf="reporters.length">
                 <option value="">Select Reporter ID</option>
-                <option *ngFor="let reporter of reporters" [value]="reporter.id">{{ reporter.name }}</option>
+                <option *ngFor="let reporter of reporters" [value]="reporter.id" (click)="onReporterOptionClick(reporter.name)">{{ reporter.name }}</option>
               </select>
               
               <!-- Input for typing reporter's name -->
               <input type="text" id="newReporterName" formControlName="reporterName" placeholder="Type reporter's name">
               
               <label>
-                <input type="checkbox" formControlName="createNewReporter"> Create New Reporter
+                <input type="checkbox" formControlName="createNewReporter" (change)="onCreateReporterChange($event)"> Create New Reporter
               </label>
               
             </div>
