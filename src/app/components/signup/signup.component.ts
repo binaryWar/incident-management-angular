@@ -54,15 +54,26 @@ export class SignupComponent {
       alert("Fill all mandatory fields to contine");
       return;
     }
-    console.log(this.userRegistrationForm.value);
+    const payloadBody = this.userRegistrationForm.value;
+    this.commonService.registerUser(payloadBody).subscribe({
+      next : (response : any)=>{
+
+      },error : (err:any)=>{
+
+      }
+    })
   }
-  populatePinCode($event:any){
+  populateCity_State($event:any){
+    
     let pincode;
     if($event.target.value && $event.target.value.length === 6){
       pincode = $event.target.value;
     }else return;
     this.commonService.getCityAndState(pincode).subscribe((data:any)=>{
-      console.log(data);
+      const {city,state,country} = data;
+      this.userRegistrationForm.controls['city'].setValue(city);
+      this.userRegistrationForm.controls['state'].setValue(state);
+      this.userRegistrationForm.controls['country'].setValue(country);
     })
   }
 }

@@ -1,105 +1,132 @@
 <div class="signup-form">
     <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label><input type="radio" formControlName="userType" value="individual"> Individual</label>
-            <label><input type="radio" formControlName="userType" value="enterprise"> Enterprise</label>
-            <label><input type="radio" formControlName="userType" value="government"> Government</label>
-            <div *ngIf="f['userType'].errors?.['required'] && (f['userType'].dirty || f['userType'].touched)" class="error">
-                Please select a user type
+        <div class="parentFormSec">
+            <div class="form-group">
+                <label><input type="radio" formControlName="userType" value="individual"> Individual</label>
+                <label><input type="radio" formControlName="userType" value="enterprise"> Enterprise</label>
+                <label><input type="radio" formControlName="userType" value="government"> Government</label>
+                <div *ngIf="f['userType'].errors?.['required'] && (f['userType'].dirty || f['userType'].touched)" class="error">
+                    Please select a user type
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-control">
+                    <input type="text" placeholder="First Name" formControlName="firstName">
+                    <div *ngIf="f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched)" class="error">
+                        <div *ngIf="f['firstName'].errors?.['required']">First Name is required</div>
+                        <div *ngIf="f['firstName'].errors?.['maxlength']">First Name must be less than 15 characters</div>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <input type="text" placeholder="Last Name" formControlName="lastName">
+                    <div *ngIf="f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched)" class="error">
+                        <div *ngIf="f['lastName'].errors?.['required']">Last Name is required</div>
+                        <div *ngIf="f['lastName'].errors?.['maxlength']">Last Name must be less than 15 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-control" style="width: 100%">
+                    <input type="email" placeholder="Email" formControlName="emailAddress" style="width: 100%">
+                    <div *ngIf="f['emailAddress'].invalid && (f['emailAddress'].dirty || f['emailAddress'].touched)" class="error">
+                        <div *ngIf="f['emailAddress'].errors?.['required']">Email is required</div>
+                        <div *ngIf="f['emailAddress'].errors?.['email']">Invalid email format</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-control" style="width: 100%">
+                    <input type="text" placeholder="Address" formControlName="address" style="width: 100%">
+                    <div *ngIf="f['address'].invalid && (f['address'].dirty || f['address'].touched)" class="error">
+                        <div *ngIf="f['address'].errors?.['required']">Address is required</div>
+                        <div *ngIf="f['address'].errors?.['maxlength']">Address must be less than 50 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-control">
+                    <input type="text" formControlName="country" placeholder="Country">
+                    <div *ngIf="f['country'].invalid && (f['country'].dirty || f['country'].touched)" class="error">
+                        <div *ngIf="f['country'].errors?.['required']">Country is required</div>
+                        <div *ngIf="f['country'].errors?.['maxlength']">Country must be less than 15 characters</div>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <input type="text" formControlName="state" placeholder="State"/>
+                    <div *ngIf="f['state'].invalid && (f['state'].dirty || f['state'].touched)" class="error">
+                        <div *ngIf="f['state'].errors?.['required']">State is required</div>
+                        <div *ngIf="f['state'].errors?.['maxlength']">State must be less than 15 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-control">
+                    <input type="text" formControlName="city" placeholder="City"/>
+                    <div *ngIf="f['city'].invalid && (f['city'].dirty || f['city'].touched)" class="error">
+                        <div *ngIf="f['city'].errors?.['required']">City is required</div>
+                        <div *ngIf="f['city'].errors?.['maxlength']">City must be less than 15 characters</div>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <input type="number" placeholder="Pincode" formControlName="pincode" (input)=populateCity_State($event)>
+                    <div *ngIf="f['pincode'].invalid && (f['pincode'].dirty || f['pincode'].touched)" class="error">
+                        <div *ngIf="f['pincode'].errors?.['required']">Pincode is required</div>
+                        <div *ngIf="f['pincode'].errors?.['maxlength']">Pincode must be less than 10 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-control">
+                    <input type="text" placeholder="Country Code" formControlName="countryCode">
+                    <div *ngIf="f['countryCode'].invalid && (f['countryCode'].dirty || f['countryCode'].touched)" class="error">
+                        <div *ngIf="f['countryCode'].errors?.['required']">Country Code is required</div>
+                        <div *ngIf="f['countryCode'].errors?.['maxlength']">Country Code must be less than 6 characters</div>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <input type="text" placeholder="Mobile Number" formControlName="mobileNo">
+                    <div *ngIf="f['mobileNo'].invalid && (f['mobileNo'].dirty || f['mobileNo'].touched)" class="error">
+                        <div *ngIf="f['mobileNo'].errors?.['required']">Mobile Number is required</div>
+                        <div *ngIf="f['mobileNo'].errors?.['minlength'] || f['mobileNo'].errors?.['maxlength']">Mobile Number must be 10 digits</div>
+                        <div *ngIf="f['mobileNo'].errors?.['pattern']">Mobile Number must be numeric</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-control">
+                    <input type="text" placeholder="Fax" formControlName="fax">
+                    <div *ngIf="f['fax'].invalid && (f['fax'].dirty || f['fax'].touched)" class="error">
+                        <div *ngIf="f['fax'].errors?.['maxlength']">Fax must be less than 15 characters</div>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <input type="text" placeholder="Phone" formControlName="phone">
+                    <div *ngIf="f['phone'].invalid && (f['phone'].dirty || f['phone'].touched)" class="error">
+                        <div *ngIf="f['phone'].errors?.['maxlength']">Phone must be less than 15 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="width: 100%">
+                <div class="form-control" style="width: 100%">
+                    <input type="password" placeholder="Password" formControlName="password">
+                    <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
+                        <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+                        <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</div>
+                        <div *ngIf="f['password'].errors?.['maxlength']">Password must be less than 15 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="width: 100%">
+                <div class="form-control" style="width: 100%">
+                    <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+                    <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched)" class="error">
+                        <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required</div>
+                        <div *ngIf="userRegistrationForm.errors?.['passwordMismatch']">Password must match</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <input type="text" placeholder="First Name" formControlName="firstName">
-            <div *ngIf="f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched)" class="error">
-                <div *ngIf="f['firstName'].errors?.['required']">First Name is required</div>
-                <div *ngIf="f['firstName'].errors?.['maxlength']">First Name must be less than 15 characters</div>
-            </div>
-            <input type="text" placeholder="Last Name" formControlName="lastName">
-            <div *ngIf="f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched)" class="error">
-                <div *ngIf="f['lastName'].errors?.['required']">Last Name is required</div>
-                <div *ngIf="f['lastName'].errors?.['maxlength']">Last Name must be less than 15 characters</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="email" placeholder="Email" formControlName="emailAddress">
-            <div *ngIf="f['emailAddress'].invalid && (f['emailAddress'].dirty || f['emailAddress'].touched)" class="error">
-                <div *ngIf="f['emailAddress'].errors?.['required']">Email is required</div>
-                <div *ngIf="f['emailAddress'].errors?.['email']">Invalid email format</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Address" formControlName="address">
-            <div *ngIf="f['address'].invalid && (f['address'].dirty || f['address'].touched)" class="error">
-                <div *ngIf="f['address'].errors?.['required']">Address is required</div>
-                <div *ngIf="f['address'].errors?.['maxlength']">Address must be less than 50 characters</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <select formControlName="country">
-                <option value="" disabled selected>Country</option>
-            </select>
-            <select formControlName="state">
-                <option value="" disabled selected>State</option>
-            </select>
-            <div *ngIf="f['country'].invalid && (f['country'].dirty || f['country'].touched)" class="error">
-                <div *ngIf="f['country'].errors?.['required']">Country is required</div>
-                <div *ngIf="f['country'].errors?.['maxlength']">Country must be less than 15 characters</div>
-            </div>
-            <div *ngIf="f['state'].invalid && (f['state'].dirty || f['state'].touched)" class="error">
-                <div *ngIf="f['state'].errors?.['required']">State is required</div>
-                <div *ngIf="f['state'].errors?.['maxlength']">State must be less than 15 characters</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <select formControlName="city">
-                <option value="" disabled selected>City</option>
-            </select>
-            <input type="text" placeholder="Pincode" formControlName="pincode"(change)=populatePinCode($event)>
-            <div *ngIf="f['city'].invalid && (f['city'].dirty || f['city'].touched)" class="error">
-                <div *ngIf="f['city'].errors?.['required']">City is required</div>
-                <div *ngIf="f['city'].errors?.['maxlength']">City must be less than 15 characters</div>
-            </div>
-            <div *ngIf="f['pincode'].invalid && (f['pincode'].dirty || f['pincode'].touched)" class="error">
-                <div *ngIf="f['pincode'].errors?.['required']">Pincode is required</div>
-                <div *ngIf="f['pincode'].errors?.['maxlength']">Pincode must be less than 10 characters</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Country Code" formControlName="countryCode">
-            <input type="text" placeholder="Mobile Number" formControlName="mobileNo">
-            <div *ngIf="f['countryCode'].invalid && (f['countryCode'].dirty || f['countryCode'].touched)" class="error">
-                <div *ngIf="f['countryCode'].errors?.['required']">Country Code is required</div>
-                <div *ngIf="f['countryCode'].errors?.['maxlength']">Country Code must be less than 6 characters</div>
-            </div>
-            <div *ngIf="f['mobileNo'].invalid && (f['mobileNo'].dirty || f['mobileNo'].touched)" class="error">
-                <div *ngIf="f['mobileNo'].errors?.['required']">Mobile Number is required</div>
-                <div *ngIf="f['mobileNo'].errors?.['minlength'] || f['mobileNo'].errors?.['maxlength']">Mobile Number must be 10 digits</div>
-                <div *ngIf="f['mobileNo'].errors?.['pattern']">Mobile Number must be numeric</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Fax" formControlName="fax">
-            <input type="text" placeholder="Phone" formControlName="phone">
-            <div *ngIf="f['fax'].invalid && (f['fax'].dirty || f['fax'].touched)" class="error">
-                <div *ngIf="f['fax'].errors?.['maxlength']">Fax must be less than 15 characters</div>
-            </div>
-            <div *ngIf="f['phone'].invalid && (f['phone'].dirty || f['phone'].touched)" class="error">
-                <div *ngIf="f['phone'].errors?.['maxlength']">Phone must be less than 15 characters</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="password" placeholder="Password" formControlName="password">
-            <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
-                <div *ngIf="f['password'].errors?.['required']">Password is required</div>
-                <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</div>
-                <div *ngIf="f['password'].errors?.['maxlength']">Password must be less than 15 characters</div>
-            </div>
-            <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
-            <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched)" class="error">
-                <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required</div>
-                <div *ngIf="userRegistrationForm.errors?.['passwordMismatch']">Passwords must match</div>
-            </div>
-        </div>
+        
         <button type="submit" class="signupBtn">Sign Up</button>
     </form>
 </div>

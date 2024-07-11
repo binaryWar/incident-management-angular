@@ -1,45 +1,72 @@
-  .signup-form {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 50%;
-      margin: 10px auto;
-      text-align: center;
-  }
-
-  button:hover {
-      background-color: #00a2d1;
-  }
-
-  form {
-      display: grid;
-      gap: 1rem;
-  }
-
-  .form-group {
-      display: flex;
-      gap: 10px;
-      /* Add spacing between inputs */
-  }
-
-  .form-group input,
-  .form-group select {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin: 0;
-  }
-  .signupBtn{
+.signup-form {
+    width: 50%;
+    margin: 0 auto; 
     padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    flex-direction: row;
+}
+
+.form-control{
+    width: 48%;
+}
+
+.form-control label {
+    margin-right: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.error div{
+    width: fit-content;
+}
+
+.signupBtn {
+    padding: 14px;
+    width: 45%;
     color: #fff;
-    content: 'LOG ME IN';
-    background-color:#063970;
-    border-radius: 18px;
-  }
-  .error {
-    color: red; 
-    font-size: 0.875rem; 
-    margin-top: 0.25rem;
-  }
+    background-color: #063970;
+    border-radius: 39px;
+    border: transparent;
+    font-size: 15px;
+    
+}
+
+.signupBtn:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.signup-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.form-control input{
+    width: 100%;
+}
+
+.form-control input,
+.form-control select{
+    /* width: 100%; */
+    outline: none;
+    padding: 10px 0px 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0;
+}
