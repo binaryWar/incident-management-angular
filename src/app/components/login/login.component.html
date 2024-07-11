@@ -1,0 +1,28 @@
+<!-- login.component.html -->
+<div class="container">
+    <div class="login-wrapper">
+        <button type="button" [ngClass]="{'active-btn' : activeBtn == 'loginBtn' }" (click)="onLoginClick($event)">LOGIN</button>
+        <button type="button" (click)="onSignUpClick($event)" [ngClass]="{'active-btn' : activeBtn == 'signupBtn' }">SIGNUP</button>
+    </div>
+</div>
+<div class="login-container" *ngIf="activeBtn == 'loginBtn'">
+    <div class="blank-div"></div>
+    <div class="login-form">
+      <h2 style="float: left;">User Login</h2>
+      <form>
+        <div class="form-group">
+          <input type="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <input [type]="showPassword ? 'password' : 'text'" placeholder="Password">
+          <i class="fa fa-eye-slash password-eye-icon" aria-hidden="true" (click)="showPassword=!showPassword" *ngIf="!showPassword"></i>
+          <i class="fa fa-eye password-eye-icon" aria-hidden="true" (click)="showPassword=!showPassword" *ngIf="showPassword"></i>
+        </div>
+        <div class="form-group">
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+        <button type="submit" class="loginButton">Log Me In</button>
+      </form>
+    </div>
+</div>
+<app-signup *ngIf="activeBtn == 'signupBtn'"></app-signup>

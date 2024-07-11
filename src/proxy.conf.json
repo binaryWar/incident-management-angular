@@ -1,0 +1,12 @@
+{
+    "/api": {
+      "target": "http://postalpincode.in",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
+  

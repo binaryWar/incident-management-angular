@@ -66,6 +66,9 @@
               "browserTarget": "incident-management:build:development"
             }
           },
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -94,5 +97,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "34a287ad-1c89-41d1-8e72-4a6870e4fe63"
   }
 }
