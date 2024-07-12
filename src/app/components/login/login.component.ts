@@ -9,7 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  activeBtn : string = "signupBtn";
+  activeBtn : string = "loginBtn";
   showPassword : boolean = true;
   userLoginFormGroup!:FormGroup;
   

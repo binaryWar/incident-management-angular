@@ -19,7 +19,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Example of incident rows, replace with actual data binding -->
         <tr *ngFor="let incident of incidents">
           <td>{{ incident.incidentNumber }}</td>
           <td>{{ incident.incidentIdentity }}</td>
@@ -29,7 +28,6 @@
           <td>{{ incident.createdAt | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
           <td>{{ incident.description }}</td>
           <td>
-            <!-- Example edit button, replace with actual edit functionality -->
             <button (click)="editIncident(incident)">Edit</button>
           </td>
         </tr>
@@ -38,7 +36,7 @@
   
     <!-- Modal/Form for Creating/Editing Incidents -->
     <div class="modal" [class.open]="modalOpen">
-        <form (ngSubmit)="saveIncident()" [formGroup]="incidentFormGroup">
+        <form (ngSubmit)="onEditButtonClick()" [formGroup]="incidentFormGroup">
             <label for="incidentIdentity">Incident Identity:</label>
             <select id="incidentIdentity" formControlName="incidentIdentity">
                 <option value="" selected disabled>Select</option>

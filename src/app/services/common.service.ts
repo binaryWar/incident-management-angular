@@ -56,4 +56,7 @@ export class CommonService {
   fetchUserIncidents(){
     return this.httpClient.get(`${host}/incident/fetch`);
   }
+  updateIncident(payloadBody : any ){
+    return this.httpClient.put(`${host}/incident/update`,payloadBody);
+  }
 } 

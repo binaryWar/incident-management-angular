@@ -12,12 +12,8 @@ export class IncidentComponent implements OnInit{
   modalOpen: boolean = false;
   incidentFormGroup!:FormGroup;
   isSubmitted:boolean = true;
-  reporters: { id: number, name: string }[] = [
-    { id: 1, name: 'John Doe' },
-    { id: 2, name: 'Jane Smith' },
-    { id: 3, name: 'Mike Johnson' }
-    // Replace with actual reporter data fetched from database
-  ];
+  reporters :any[] = [];
+  ActivatedIncidentNumber : string | null = null;
   constructor(private fb : FormBuilder,private commonService: CommonService) { }
 
   ngOnInit(): void {
@@ -71,9 +67,9 @@ export class IncidentComponent implements OnInit{
     }
     this.commonService.createIncident(this.incidentFormGroup.value).subscribe({
       next : (data:any)=>{
-        console.log(JSON.stringify(data));
         this.closeModal();
         this.fetchIncidents();
+        this.resetForm();
       },error : (error:any)=>{
         alert("Something bad happend!!!");
       }
@@ -82,7 +78,41 @@ export class IncidentComponent implements OnInit{
 
   editIncident(incident: any) {
     this.openModal();
+    this.ActivatedIncidentNumber = incident.incidentNumber;
+    this.pathFormValue(incident);
   }
+  onEditButtonClick(){
+    if(this.incidentFormGroup.invalid){
+      alert("fill all the details");
+      return;
+    };
+    if(!this.ActivatedIncidentNumber){
+      alert("No incident is selected for editing");
+      return;
+    }
+    this.commonService.updateIncident(Object.assign(this.incidentFormGroup.value,{incidentNumber : this.ActivatedIncidentNumber})).subscribe({
+      next : (response:any)=>{
+        console.log("Jsjon",JSON.stringify(response));
+        this.closeModal();
+        this.resetForm();
+        this.fetchIncidents();
+      },error : (err:any)=>{
+        alert("Something went wrong");
+      }
+    })
+  }
+  private pathFormValue(incident : any){
+    this.incidentFormGroup.patchValue({
+      incidentIdentity : incident.incidentIdentity,
+      reporterId : incident.reportedId,
+      reporterName: incident.reporterName,
+      priority : incident.priority,
+      status : incident.status,
+      description : incident.description,
+      createNewReporter :  false
+    })
+  }
+
   onReporterOptionClick(name:string){
     this.incidentFormGroup.controls['reporterName'].setValue(name);
     this.incidentFormGroup.controls['createNewReporter'].setValue(false);
@@ -95,5 +125,11 @@ export class IncidentComponent implements OnInit{
     }else{
 
     }
+  }
+  private resetForm(){
+    this.incidentFormGroup.reset();
+    this.incidentFormGroup.controls['createNewReporter'].setValue(false);
+    this.incidentFormGroup.controls['priority'].setValue('');
+    this.incidentFormGroup.controls['status'].setValue('');
   }
 }
