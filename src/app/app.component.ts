@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +9,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   title = 'incident-management';
-  showLoginButton : boolean = false;
-  constructor(private authSer : AuthService,private activatedRoute : ActivatedRoute){}
+  showLogoutButton : boolean = false;
+  constructor(private authSer : AuthService,private router : Router){}
+  
   ngOnInit(): void {
-    this.changeRouteChange();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showLogoutButton = event.url !== '/';
+      }
+    });
   }
   
   logout(){
     this.authSer.logout();
   }
-  private changeRouteChange(){
-    this.activatedRoute.url.subscribe(url =>{
-      console.log(url);
-    });
-  }
+  
 }
