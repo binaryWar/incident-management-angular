@@ -62,14 +62,20 @@
               </select> -->
               
               <!-- Input for typing reporter's name -->
-              <input type="text" id="newReporterName" formControlName="reporterName" placeholder="Type reporter's name" (input)="onChangeReporter($event)">
+              <input type="text" id="newReporterName" formControlName="reporterName" placeholder="Type reporter's name" (input)="onChangeReporter($event)" style="margin-bottom: 0px;">
               <ul *ngIf="reporters.length">
                 <li *ngFor="let reporter of reporters" (click)="onReporterOptionClick(reporter)"> {{ reporter.name }} - {{ reporter.id }} </li>
               </ul>
-              <label>
-                <input type="checkbox" formControlName="createNewReporter" (change)="onCreateReporterChange($event)"> Create New Reporter
-              </label>
-              <input type="text" nformControlName="reporterId" id="reporterId" readonly hidden>
+              <div class="reporter-details">
+                <div>
+                  <label> Create New Reporter </label>
+                  <input type="checkbox" formControlName="createNewReporter" (change)="onCreateReporterChange($event)"> 
+                </div>
+                <div *ngIf="showReporterMobileNoInput">
+                  <input type="text" id="newReporterName" formControlName="reporterMobileNo" placeholder="Type reporter's mobile No.">
+                </div>
+              </div>
+              <input type="text" formControlName="reporterId" id="reporterId" readonly hidden>
             </div>
             <div *ngIf="shouldDisplayError('reporterId') || shouldDisplayError('reporterName')" class="error">
               <div *ngIf="f['reporterId'].errors?.['required']">Reporter ID is required</div>

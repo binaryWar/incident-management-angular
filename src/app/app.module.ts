@@ -8,13 +8,15 @@ import { IncidentComponent } from './components/incident/incident.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HttpInterceptorInterceptor } from './services/http-interceptor.interceptor';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    IncidentComponent
+    IncidentComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

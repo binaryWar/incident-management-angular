@@ -12,7 +12,11 @@ export class IncidentComponent implements OnInit{
   modalOpen: boolean = false;
   incidentFormGroup!:FormGroup;
   isSubmitted:boolean = true;
-  reporters :any[] = [];
+  showReporterMobileNoInput : boolean = false;
+  reporters :any[] = [
+    {id :1 , name : "Aman singh"},
+    {id: 2, name : "Rao sahab"}
+  ];
   ActivatedIncidentNumber : string | null = null;
   constructor(private fb : FormBuilder,private commonService: CommonService) { }
 
@@ -24,7 +28,8 @@ export class IncidentComponent implements OnInit{
       priority : [,[Validators.required,Validators.maxLength(15)]],
       status : [,[Validators.required,Validators.maxLength(15)]],
       description : [,[Validators.required,Validators.maxLength(50)]],
-      createNewReporter : [false]
+      createNewReporter : [false],
+      reporterMobileNo : [null]
     })
     this.fetchIncidents();
   }
@@ -65,7 +70,8 @@ export class IncidentComponent implements OnInit{
       alert("Please fill all the details");
       return;
     }
-    this.commonService.createIncident(this.incidentFormGroup.value).subscribe({
+    const payloadBody = this.constructPayload();
+    this.commonService.createIncident(payloadBody).subscribe({
       next : (data:any)=>{
         this.closeModal();
         this.fetchIncidents();
@@ -76,11 +82,25 @@ export class IncidentComponent implements OnInit{
     });
   }
 
+  private constructPayload(){
+    const formValue = this.incidentFormGroup.value;
+    
+    const requestBody = { ...formValue };
+
+    if (requestBody.reporterId) {
+      delete requestBody.reporterName;
+      delete requestBody.reporterMobileNo;
+    }
+
+    return requestBody;
+  }
+
   editIncident(incident: any) {
     this.openModal();
     this.ActivatedIncidentNumber = incident.incidentNumber;
     this.pathFormValue(incident);
   }
+
   onEditButtonClick(){
     if(this.incidentFormGroup.invalid){
       alert("fill all the details");
@@ -116,24 +136,34 @@ export class IncidentComponent implements OnInit{
   onReporterOptionClick(reporter:{id:number,name:string}){
     if(!reporter) return;
     this.incidentFormGroup.controls['reporterName'].setValue(reporter.name);
-    this.incidentFormGroup.controls['reporterName'].setValue(reporter.id);
+    this.incidentFormGroup.controls['reporterId'].setValue(reporter.id);
     this.incidentFormGroup.controls['createNewReporter'].setValue(false);
   }
+  
   onCreateReporterChange(event:any){
     const ele = event.target;
 
     if(ele && ele.checked){
       this.incidentFormGroup.controls['reporterId'].setValue(null);
-    }else{
+      this.showReporterMobileNoInput = true;
+      this.incidentFormGroup.controls['reporterMobileNo'].addValidators([Validators.required]);
 
+    }else{
+      this.showReporterMobileNoInput = false;
+      this.incidentFormGroup.controls['reporterMobileNo'].clearValidators();
     }
+    this.incidentFormGroup.controls['reporterMobileNo'].updateValueAndValidity();
   }
+
   private resetForm(){
     this.incidentFormGroup.reset();
     this.incidentFormGroup.controls['createNewReporter'].setValue(false);
     this.incidentFormGroup.controls['priority'].setValue('');
     this.incidentFormGroup.controls['status'].setValue('');
+    this.incidentFormGroup.controls['reporterMobileNo'].clearValidators();
+    this.incidentFormGroup.controls['reporterMobileNo'].updateValueAndValidity();
   }
+
   onChangeReporter($event:any){
     const ele = $event.target;
     if(!ele) return;
