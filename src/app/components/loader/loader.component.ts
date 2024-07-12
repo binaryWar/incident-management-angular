@@ -7,7 +7,12 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./loader.component.css']
 })
 export class LoaderComponent {
-  isLoading = this.loaderService.isLoading;
+  isLoading : boolean = false; 
 
-  constructor(private loaderService: LoaderService) {}
+  constructor(private loaderService: LoaderService) {
+    this.loaderService.isLoading.subscribe((flag:boolean)=>{
+      this.isLoading = flag
+      console.log(flag + " ================= ")
+    });
+  }
 }

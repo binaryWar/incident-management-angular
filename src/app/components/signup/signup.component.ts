@@ -63,11 +63,12 @@ export class SignupComponent {
       }
     })
   }
-  populateCity_State($event:any){
-    
+  populateCity_State($event:any){    
     let pincode;
-    if($event.target.value && $event.target.value.length === 6){
-      pincode = $event.target.value;
+    let value = `${$event}`;
+    console.log(typeof(value))
+    if($event && value.length === 6){
+      pincode = $event;
     }else return;
     this.commonService.getCityAndState(pincode).subscribe((data:any)=>{
       const {city,state,country} = data;

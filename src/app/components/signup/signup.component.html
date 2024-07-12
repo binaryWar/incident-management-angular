@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="form-control">
-                    <input type="number" placeholder="Pincode" formControlName="pincode" (input)=populateCity_State($event)>
+                    <input type="number" placeholder="Pincode" formControlName="pincode" (ngModelChange)="populateCity_State($event)">
                     <div *ngIf="f['pincode'].invalid && (f['pincode'].dirty || f['pincode'].touched)" class="error">
                         <div *ngIf="f['pincode'].errors?.['required']">Pincode is required</div>
                         <div *ngIf="f['pincode'].errors?.['maxlength']">Pincode must be less than 10 characters</div>
