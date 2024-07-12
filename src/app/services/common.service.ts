@@ -59,4 +59,8 @@ export class CommonService {
   updateIncident(payloadBody : any ){
     return this.httpClient.put(`${host}/incident/update`,payloadBody);
   }
+  fetchReporters(value:string){
+    if(!value || value.trim().length === 0) return;
+    return this.httpClient.get(`${host}/reporter/search?prefix=${value}`);
+  }
 } 

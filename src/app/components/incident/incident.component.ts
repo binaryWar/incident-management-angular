@@ -132,4 +132,18 @@ export class IncidentComponent implements OnInit{
     this.incidentFormGroup.controls['priority'].setValue('');
     this.incidentFormGroup.controls['status'].setValue('');
   }
+  onChangeReporter($event:any){
+    const ele = $event.target;
+    if(!ele) return;
+    const value = ele.value.trim();
+    if(value && value.length > 2){
+      this.commonService.fetchReporters(value)?.subscribe({
+        next : (response:any)=>{
+          this.reporters = response;
+        },error : (err:any)=>{
+          
+        }
+      })
+    }
+  }
 }
