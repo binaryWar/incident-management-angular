@@ -56,18 +56,20 @@
             <label for="reporterId">Reporter:</label>
             <div>
               <!-- Dropdown for selecting existing reporter ID -->
-              <select id="reporterId" formControlName="reporterId" *ngIf="reporters.length">
+              <!-- <select id="reporterId" formControlName="reporterId" *ngIf="reporters.length">
                 <option value="">Select Reporter ID</option>
                 <option *ngFor="let reporter of reporters" [value]="reporter.id" (click)="onReporterOptionClick(reporter.name)">{{ reporter.name }} - {{ reporter.id }}</option>
-              </select>
+              </select> -->
               
               <!-- Input for typing reporter's name -->
               <input type="text" id="newReporterName" formControlName="reporterName" placeholder="Type reporter's name" (input)="onChangeReporter($event)">
-              
+              <ul *ngIf="reporters.length">
+                <li *ngFor="let reporter of reporters" (click)="onReporterOptionClick(reporter)"> {{ reporter.name }} - {{ reporter.id }} </li>
+              </ul>
               <label>
                 <input type="checkbox" formControlName="createNewReporter" (change)="onCreateReporterChange($event)"> Create New Reporter
               </label>
-              
+              <input type="text" nformControlName="reporterId" id="reporterId" readonly hidden>
             </div>
             <div *ngIf="shouldDisplayError('reporterId') || shouldDisplayError('reporterName')" class="error">
               <div *ngIf="f['reporterId'].errors?.['required']">Reporter ID is required</div>

@@ -113,8 +113,10 @@ export class IncidentComponent implements OnInit{
     })
   }
 
-  onReporterOptionClick(name:string){
-    this.incidentFormGroup.controls['reporterName'].setValue(name);
+  onReporterOptionClick(reporter:{id:number,name:string}){
+    if(!reporter) return;
+    this.incidentFormGroup.controls['reporterName'].setValue(reporter.name);
+    this.incidentFormGroup.controls['reporterName'].setValue(reporter.id);
     this.incidentFormGroup.controls['createNewReporter'].setValue(false);
   }
   onCreateReporterChange(event:any){

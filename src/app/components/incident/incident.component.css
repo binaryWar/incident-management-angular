@@ -84,11 +84,12 @@
   }
   
   .modal button[type="submit"] {
-    background-color: #28a745;
+    background-color: #063970;
   }
   
   .modal button[type="button"] {
-    background-color: #dc3545;
+    background-color: #fff;
     margin-left: 10px;
+    color: #000;
   }
   
