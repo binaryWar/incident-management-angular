@@ -22,7 +22,7 @@
         <tr *ngFor="let incident of incidents">
           <td>{{ incident.incidentNumber }}</td>
           <td>{{ incident.incidentIdentity }}</td>
-          <td>{{ incident.reportedId }}</td>
+          <td>{{ incident.reporter?.name }}</td>
           <td>{{ incident.priority }}</td>
           <td>{{ incident.status }}</td>
           <td>{{ incident.createdAt | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
@@ -57,7 +57,7 @@
               <!-- Input for typing reporter's name -->
               <input type="text" id="newReporterName" formControlName="reporterName" placeholder="Type reporter's name" (input)="onChangeReporter($event)" style="margin-bottom: 0px;">
               <ul *ngIf="reporters.length">
-                <li *ngFor="let reporter of reporters" (click)="onReporterOptionClick(reporter)"> {{ reporter.name }} - {{ reporter.id }} </li>
+                <li *ngFor="let reporter of reporters" (click)="onReporterOptionClick(reporter)"> {{ reporter.name }} - {{ reporter.mobileNo }} </li>
               </ul>
               <div class="reporter-details">
                 <div>

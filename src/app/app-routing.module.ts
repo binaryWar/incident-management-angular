@@ -9,7 +9,7 @@ const routes: Routes = [
   {path : "", component : LoginComponent , pathMatch : 'full'},
   {path : "forgotpassword", component : ForgotPasswordComponent , pathMatch : 'full'},
   {path : "incident", component : IncidentComponent, pathMatch : 'full',canActivate : [AuthGuard]},
-  {path : '*',component : LoginComponent}
+  {path : '**', component : LoginComponent}
 
 ];
 

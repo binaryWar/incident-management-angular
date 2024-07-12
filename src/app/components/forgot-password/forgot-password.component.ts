@@ -37,8 +37,9 @@ export class ForgotPasswordComponent implements OnInit{
     this.commonService.forgotPassword(this.forgotPasswordFormGroup.value).subscribe({
       next : (response:any)=>{
         alert("reset successfully");
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
       },error : (err:any)=>{
+        debugger
         alert("something bad happened!! or invalid credentials");
       }
     })

@@ -64,6 +64,6 @@ export class CommonService {
     return this.httpClient.get(`${host}/reporter/search?prefix=${value}`);
   }
   forgotPassword(payload : any){
-    return this.httpClient.put(`${host}/user/forgotpassword`,payload);
+    return this.httpClient.put(`${host}/user/forgot-password`,payload);
   }
 } 

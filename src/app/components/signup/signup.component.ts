@@ -57,9 +57,9 @@ export class SignupComponent {
     const payloadBody = this.userRegistrationForm.value;
     this.commonService.registerUser(payloadBody).subscribe({
       next : (response : any)=>{
-
+        alert("Creation success");
       },error : (err:any)=>{
-
+        alert("some thing went wrong");
       }
     })
   }

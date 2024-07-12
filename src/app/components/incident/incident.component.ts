@@ -124,8 +124,8 @@ export class IncidentComponent implements OnInit{
   private pathFormValue(incident : any){
     this.incidentFormGroup.patchValue({
       incidentIdentity : incident.incidentIdentity,
-      reporterId : incident.reportedId,
-      reporterName: incident.reporterName,
+      reporterId : incident.reporter?.id,
+      reporterName: incident.reporter?.name,
       priority : incident.priority,
       status : incident.status,
       description : incident.description,
@@ -181,8 +181,8 @@ export class IncidentComponent implements OnInit{
     }
   }
   private addValidatorForForm(){
-    const {reportedId,createNewReporter} = this.incidentFormGroup.value;
-    if(!reportedId){
+    const {reporterId,createNewReporter} = this.incidentFormGroup.value;
+    if(!reporterId){
       this.showReporterMobileNoInput = true;
       this.incidentFormGroup.controls['createNewReporter'].setValue(true);
       this.incidentFormGroup.controls['reporterMobileNo'].addValidators([Validators.required]);

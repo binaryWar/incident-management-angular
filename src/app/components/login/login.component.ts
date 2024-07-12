@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit{
         this.handleSessionStorage(id,emailAddress);
         this.router.navigate(['/incident'])
       },error : (err:any)=>{
-
+        alert("Invalid credentials");
       }
     })
   }
