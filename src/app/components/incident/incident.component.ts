@@ -65,7 +65,7 @@ export class IncidentComponent implements OnInit{
 
   saveIncident() {
     this.addValidatorForForm();
-    
+
     if(this.incidentFormGroup.invalid){
       alert("Please fill all the details");
       return;
@@ -113,7 +113,6 @@ export class IncidentComponent implements OnInit{
     }
     this.commonService.updateIncident(Object.assign(this.incidentFormGroup.value,{incidentNumber : this.ActivatedIncidentNumber})).subscribe({
       next : (response:any)=>{
-        console.log("Jsjon",JSON.stringify(response));
         this.closeModal();
         this.resetForm();
         this.fetchIncidents();

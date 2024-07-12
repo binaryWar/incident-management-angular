@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HttpInterceptorInterceptor } from './services/http-interceptor.interceptor';
 import { LoaderComponent } from './components/loader/loader.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     LoginComponent,
     SignupComponent,
     IncidentComponent,
-    LoaderComponent
+    LoaderComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

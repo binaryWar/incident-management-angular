@@ -19,7 +19,7 @@
           <i class="fa fa-eye password-eye-icon" aria-hidden="true" (click)="showPassword=!showPassword" *ngIf="showPassword"></i>
         </div>
         <div class="form-group">
-          <a href="#" class="forgot-password">Forgot password?</a>
+          <a href="#" class="forgot-password" [routerLink]="['forgotpassword']">Forgot password?</a>
         </div>
         <button type="submit" class="loginButton">Log Me In</button>
       </form>

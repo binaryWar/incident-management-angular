@@ -63,4 +63,7 @@ export class CommonService {
     if(!value || value.trim().length === 0) return;
     return this.httpClient.get(`${host}/reporter/search?prefix=${value}`);
   }
+  forgotPassword(payload : any){
+    return this.httpClient.put(`${host}/user/forgotpassword`,payload);
+  }
 } 
