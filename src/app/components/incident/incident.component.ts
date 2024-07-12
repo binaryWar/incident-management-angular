@@ -13,10 +13,7 @@ export class IncidentComponent implements OnInit{
   incidentFormGroup!:FormGroup;
   isSubmitted:boolean = true;
   showReporterMobileNoInput : boolean = false;
-  reporters :any[] = [
-    {id :1 , name : "Aman singh"},
-    {id: 2, name : "Rao sahab"}
-  ];
+  reporters :any[] = [];
   ActivatedIncidentNumber : string | null = null;
   constructor(private fb : FormBuilder,private commonService: CommonService) { }
 
@@ -63,9 +60,12 @@ export class IncidentComponent implements OnInit{
 
   closeModal() {
     this.modalOpen = false;
+    this.resetForm();
   }
 
   saveIncident() {
+    this.addValidatorForForm();
+    
     if(this.incidentFormGroup.invalid){
       alert("Please fill all the details");
       return;
@@ -102,6 +102,7 @@ export class IncidentComponent implements OnInit{
   }
 
   onEditButtonClick(){
+    this.addValidatorForForm();
     if(this.incidentFormGroup.invalid){
       alert("fill all the details");
       return;
@@ -162,6 +163,8 @@ export class IncidentComponent implements OnInit{
     this.incidentFormGroup.controls['status'].setValue('');
     this.incidentFormGroup.controls['reporterMobileNo'].clearValidators();
     this.incidentFormGroup.controls['reporterMobileNo'].updateValueAndValidity();
+    this.showReporterMobileNoInput = false;
+    this.ActivatedIncidentNumber = null;
   }
 
   onChangeReporter($event:any){
@@ -176,6 +179,15 @@ export class IncidentComponent implements OnInit{
           
         }
       })
+    }
+  }
+  private addValidatorForForm(){
+    const {reportedId,createNewReporter} = this.incidentFormGroup.value;
+    if(!reportedId){
+      this.showReporterMobileNoInput = true;
+      this.incidentFormGroup.controls['createNewReporter'].setValue(true);
+      this.incidentFormGroup.controls['reporterMobileNo'].addValidators([Validators.required]);
+      this.incidentFormGroup.controls['reporterMobileNo'].updateValueAndValidity();
     }
   }
 }

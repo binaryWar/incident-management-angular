@@ -36,7 +36,7 @@
   
     <!-- Modal/Form for Creating/Editing Incidents -->
     <div class="modal" [class.open]="modalOpen">
-        <form (ngSubmit)="onEditButtonClick()" [formGroup]="incidentFormGroup">
+        <form  [formGroup]="incidentFormGroup">
             <label for="incidentIdentity">Incident Identity:</label>
             <select id="incidentIdentity" formControlName="incidentIdentity">
                 <option value="" selected disabled>Select</option>
@@ -46,16 +46,9 @@
             <div *ngIf="shouldDisplayError('incidentIdentity')" class="error">
                 <div *ngIf="f['priority'].errors?.['required']">Incident Identity is required</div>
             </div>
-
-            <!-- <label for="reporterName">Reporter Name:</label>
-            <input type="text" id="reporterName" formControlName="reporterId">
-            <div *ngIf="shouldDisplayError('reporterName')" class="error">
-              <div *ngIf="f['reporterName'].errors?.['required']">Reporter Name is required</div>
-              <div *ngIf="f['reporterName'].errors?.['maxlength']">Reporter Name must be less than 25 characters</div>
-            </div> -->
             <label for="reporterId">Reporter:</label>
             <div>
-              <!-- Dropdown for selecting existing reporter ID -->
+              
               <!-- <select id="reporterId" formControlName="reporterId" *ngIf="reporters.length">
                 <option value="">Select Reporter ID</option>
                 <option *ngFor="let reporter of reporters" [value]="reporter.id" (click)="onReporterOptionClick(reporter.name)">{{ reporter.name }} - {{ reporter.id }}</option>
@@ -69,13 +62,16 @@
               <div class="reporter-details">
                 <div>
                   <label> Create New Reporter </label>
-                  <input type="checkbox" formControlName="createNewReporter" (change)="onCreateReporterChange($event)"> 
+                  <input type="checkbox" formControlName="createNewReporter" (change)="onCreateReporterChange($event)" style="width: fit-content;"> 
                 </div>
                 <div *ngIf="showReporterMobileNoInput">
                   <input type="text" id="newReporterName" formControlName="reporterMobileNo" placeholder="Type reporter's mobile No.">
+                  <div *ngIf="shouldDisplayError('reporterMobileNo')" class="error">
+                    <div *ngIf="f['reporterMobileNo'].errors?.['required']">Reporter Mobile No is required</div>
+                  </div>
                 </div>
+                <input type="text" formControlName="reporterId" id="reporterId" readonly hidden>
               </div>
-              <input type="text" formControlName="reporterId" id="reporterId" readonly hidden>
             </div>
             <div *ngIf="shouldDisplayError('reporterId') || shouldDisplayError('reporterName')" class="error">
               <div *ngIf="f['reporterId'].errors?.['required']">Reporter ID is required</div>
@@ -112,8 +108,8 @@
               <div *ngIf="f['description'].errors?.['required']">Description is required</div>
               <div *ngIf="f['description'].errors?.['maxlength']">Description must be less than 50 characters</div>
             </div>
-          
-            <button type="submit">Save</button>
+            <button type="submit" *ngIf="ActivatedIncidentNumber" (click)="onEditButtonClick()">Edit</button>
+            <button type="submit" *ngIf="!ActivatedIncidentNumber" (click)="saveIncident()">Save</button>
             <button type="button" (click)="closeModal()">Cancel</button>
           </form>
           

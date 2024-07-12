@@ -109,5 +109,17 @@
   }
   .reporter-details{
     display: flex;
-    
+    justify-content: space-between;
+    margin-top: 10px;
   }
+  .reporter-details div {
+    width: 48%;
+    display: flex;
+    align-items: center;
+  }
+  .reporter-details div input[type="text"]{
+    width: 100%;
+  }
+  /* .reporter-details div input[type="text"]{
+    width: unset;
+  } */
